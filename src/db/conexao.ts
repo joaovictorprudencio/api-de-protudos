@@ -7,7 +7,7 @@
  const senha = process.env.SENHA; 
  const user = process.env.USERNAME; 
 
- const conString: string = process.env.DATABASE_URL  ||` postgres://${user}:${senha}@localhost/${banco}` ;
+ const conString: string = process.env.DATABASE_URL  ||` postgres://${user}:${senha}@localhost/${banco} ;
 
  const client: Client = new Client({
     connectionString:conString,
