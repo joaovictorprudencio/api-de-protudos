@@ -1,6 +1,11 @@
 import { Produto } from "../entities/Produto";
 import { ProdutoRepository } from "../repository/produto.repository";
-import { listSaidaDto, ProdutoService, VendaSaidaDto } from "./produto.service";
+import {
+  CompraSaidaDto,
+  listSaidaDto,
+  ProdutoService,
+  VendaSaidaDto,
+} from "./produto.service";
 
 export class ProdutoServiceIplement implements ProdutoService {
   private constructor(readonly repository: ProdutoRepository) {}
@@ -16,16 +21,40 @@ export class ProdutoServiceIplement implements ProdutoService {
     }
     produto.saidaEstoque(quantidade);
     await this.repository.atualizar(produto);
-     const saida:VendaSaidaDto = {
-        id: produto.id,
-        balance: produto.quantidade
-     }
-     return saida;
+    const saida: VendaSaidaDto = {
+      id: produto.id,
+      quantidade: produto.quantidade,
+    };
+    return saida;
   }
   public async comprar(id: string, quantidade: number): Promise<VendaSaidaDto> {
-    throw new Error("Method not implemented.");
+    const produto = await this.repository.buscar(id);
+    if (!produto) {
+      throw new Error(`O produto ${id} não foi encontrado`);
+    }
+    produto.entradaEstoque(quantidade);
+    await this.repository.atualizar(produto);
+    const compra: CompraSaidaDto = {
+      id: produto.id,
+      quantidade: produto.quantidade,
+    };
+    return compra;
   }
   public async list(): Promise<listSaidaDto> {
-    throw new Error("Method not implemented.");
+    const aProdutos = await this.repository.list();
+    const produtos = aProdutos.map((p) => {
+      return {
+        id: p.id,
+        nome: p.nome,
+        preco: p.preco,
+        quantidade: p.quantidade,
+      };
+    });
+
+    const lista: listSaidaDto = {
+      produtos,
+    };
+
+    return lista;
   }
 }

@@ -1,12 +1,12 @@
 export type VendaSaidaDto = {
-    id:string,
-    balance: number;
+    id:string;
+    quantidade: number;
 
 }
 
 export type CompraSaidaDto = {
     id: string;
-    balance: string
+    quantidade: number;
 }
 
 export type listSaidaDto = {
@@ -14,8 +14,8 @@ export type listSaidaDto = {
         id:string;
         nome:string;
         preco:number;
-        balance:string;
-    }
+        quantidade:number;
+    }[];
 }
 
 export interface ProdutoService {
