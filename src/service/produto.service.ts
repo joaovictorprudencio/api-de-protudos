@@ -1,6 +1,6 @@
 export type VendaSaidaDto = {
     id:string,
-    balance: string;
+    balance: number;
 
 }
 
