@@ -5,11 +5,11 @@ export type ProdutosProps = {
     quantidade: number;
 }
 
-export class Produtos {
+export class Produto {
    private  constructor(readonly props: ProdutosProps){}
    public static criarProduto(nome:string , preco:number ){
 
-    return new Produtos({
+    return new Produto({
         id: crypto.randomUUID().toString(),
         nome,
         preco,
@@ -34,8 +34,15 @@ export class Produtos {
     return this.props.quantidade;
   }
 
-  public addEstoque(valor: number){
+  public entradaEstoque(valor: number){
     this.props.quantidade += valor;
+  }
+
+  public saidaEstoque(valor:number){
+    if(this.props.quantidade < valor) {
+        throw new Error("quantidade em estoque é insuficiente");
+    }
+    this.props.quantidade -= valor;
   }
   
 

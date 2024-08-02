@@ -21,7 +21,8 @@
     "express": "^4.19.2",
     "helmet": "^7.1.0",
     "pg": "^8.12.0",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "ts-node-express": "file:"
   },
   "devDependencies": {
     "@types/pg": "^8.11.6",
