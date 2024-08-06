@@ -24,18 +24,43 @@ export class ProdutosController {
     response.status(201).json(data).send();
   }
 
-
-  public async listagemProdutos(resquest: Request , response: Response){
+  public async listagemProdutos(resquest: Request, response: Response) {
     const repository = ProdutoRepositoryPrisma.build(prisma);
     const service = await ProdutoServiceIplement.build(repository);
     const listagem = await service.list();
-   
 
     const dataList = {
-      produtos: listagem.produtos
-      
-    }
+      produtos: listagem.produtos,
+    };
 
-    response.status(200).json(dataList).send()
+    response.status(200).json(dataList).send();
+  }
+
+  public async CompraProdutos(request: Request, response: Response) {
+    const { id } = request.params;
+    const { quantidade } = request.body;
+    const repository = ProdutoRepositoryPrisma.build(prisma);
+    const service = await ProdutoServiceIplement.build(repository);
+    const compra = await service.comprar(id, quantidade);
+    const data = {
+      id: compra.id,
+      quantidade: compra.quantidade,
+    };
+
+    response.status(201).json(data).send();
+  }
+
+  public async vender(request:Request , response:Response ){
+    const { id } = request.params;
+    const { quantidade} = request.body;
+    const repository = ProdutoRepositoryPrisma.build(prisma);
+    const service = await ProdutoServiceIplement.build(repository);
+     const venda = await service.vender(id, quantidade)
+
+     const data = {
+        id: venda.id,
+        venda:quantidade
+     }
+     response.status(200).json(data)
   }
 }
