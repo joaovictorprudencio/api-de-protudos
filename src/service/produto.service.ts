@@ -18,8 +18,14 @@ export type listSaidaDto = {
     }[];
 }
 
+export type CriarEntradaDto = {
+    id: string;
+    quantidade:number;
+}
+
 export interface ProdutoService {
    vender(id:string, quantidade:number): Promise<VendaSaidaDto>;
    comprar(id: string , quantidade:number): Promise<VendaSaidaDto>;
    list(): Promise<listSaidaDto>;
+   criar(nome: string, quantidade:number):Promise<CriarEntradaDto>;
 }

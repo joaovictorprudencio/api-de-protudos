@@ -2,6 +2,7 @@ import { Produto } from "../entities/Produto";
 import { ProdutoRepository } from "../repository/produto.repository";
 import {
   CompraSaidaDto,
+  CriarEntradaDto,
   listSaidaDto,
   ProdutoService,
   VendaSaidaDto,
@@ -9,6 +10,9 @@ import {
 
 export class ProdutoServiceIplement implements ProdutoService {
   private constructor(readonly repository: ProdutoRepository) {}
+  criar(nome: string, quantidade: number): Promise<CriarEntradaDto> {
+    throw new Error("Method not implemented.");
+  }
 
   public async build(repository: ProdutoRepository) {
     return new ProdutoServiceIplement(repository);
