@@ -10,11 +10,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProdutoServiceIplement = void 0;
+const Produto_1 = require("../entities/Produto");
 class ProdutoServiceIplement {
     constructor(repository) {
         this.repository = repository;
     }
-    build(repository) {
+    criar(nome, preco) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const aProduto = Produto_1.Produto.criarProduto(nome, preco);
+            yield this.repository.salvar(aProduto);
+            const Entrada = {
+                id: aProduto.id,
+                quantidade: aProduto.quantidade
+            };
+            return Entrada;
+        });
+    }
+    static build(repository) {
         return __awaiter(this, void 0, void 0, function* () {
             return new ProdutoServiceIplement(repository);
         });

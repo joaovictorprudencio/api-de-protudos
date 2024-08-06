@@ -1,23 +1,19 @@
-import express , { Express , Request , Response } from "express";
-import helmet from "helmet";
-import dotenv from "dotenv"
-
-dotenv.config();
-
-const app: Express = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(helmet());
-
-app.use(express.json());
-
-app.use(express.urlencoded({extended: true}))
-
-app.get('/' , (req: Request , res: Response) => {
-    res.send("<h1> Olá mundo typescript <h1/>");
-});
-
-app.listen(PORT, ()=> console.log("rodando"))
+import { ProdutosController } from "./controller/controller";
+import { ApiExpress } from "./controller/express";
 
 
+function main(){
+
+
+    const api = ApiExpress.build();
+    const controller = ProdutosController.build();
+
+    api.addGetRoute("/produtos", controller.listagemProdutos);
+    api.addGetRoute("/produto/id:/comprar", controller.CompraProdutos);
+    api.addGetRoute("/produto/id:/vender", controller.vender);
+    api.addGetRoute("/produto/novo", controller.criarProduto)
+    api.start(3000);
+}
+
+main()
 

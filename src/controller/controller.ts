@@ -55,12 +55,12 @@ export class ProdutosController {
     const { quantidade} = request.body;
     const repository = ProdutoRepositoryPrisma.build(prisma);
     const service = await ProdutoServiceIplement.build(repository);
-     const venda = await service.vender(id, quantidade)
+     const venda = await service.vender(id, quantidade);
 
      const data = {
         id: venda.id,
         venda:quantidade
      }
-     response.status(200).json(data)
+     response.status(200).json(data);
   }
 }

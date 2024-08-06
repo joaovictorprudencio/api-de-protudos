@@ -19,7 +19,7 @@ class ProdutoRepositoryPrisma {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    build(prisma) {
+    static build(prisma) {
         return new ProdutoRepositoryPrisma(prisma);
     }
     salvar(produto) {
@@ -36,7 +36,7 @@ class ProdutoRepositoryPrisma {
     }
     list() {
         return __awaiter(this, void 0, void 0, function* () {
-            const allProdutos = yield conexao_1.default.produto.findMany();
+            const allProdutos = yield this.prisma.produto.findMany();
             const produtos = allProdutos.map((p) => {
                 const { id, nome, preco, quantidade } = p;
                 return Produto_1.Produto.persistencia(id, nome, preco, quantidade);
