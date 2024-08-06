@@ -10,11 +10,20 @@ import {
 
 export class ProdutoServiceIplement implements ProdutoService {
   private constructor(readonly repository: ProdutoRepository) {}
-  criar(nome: string, quantidade: number): Promise<CriarEntradaDto> {
-    throw new Error("Method not implemented.");
+
+  public async criar(nome: string, preco: number): Promise<CriarEntradaDto> {
+    const aProduto =  Produto.criarProduto(nome, preco );
+    await  this.repository.salvar(aProduto);
+
+      const Entrada: CriarEntradaDto = {
+        id: aProduto.id,
+         quantidade: aProduto.quantidade
+      }
+
+      return Entrada;
   }
 
-  public async build(repository: ProdutoRepository) {
+  public static async build(repository: ProdutoRepository) {
     return new ProdutoServiceIplement(repository);
   }
 
